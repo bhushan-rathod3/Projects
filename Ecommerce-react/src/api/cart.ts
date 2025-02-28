@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const BASE_URL = "https://fakestoreapi.com/carts";
+const API_URL = "https://fakestoreapi.com/carts";
 
-export const fetchUserCart = async (userId: number) => {
-  const response = await axios.get(`${BASE_URL}/user/${userId}`);
+export const fetchCart = async (userId: number) => {
+  const response = await axios.get(`${API_URL}/user/${userId}`);
   return response.data;
 };
 
@@ -12,9 +12,9 @@ export const addToCart = async (
   productId: number,
   quantity: number
 ) => {
-  const response = await axios.post(BASE_URL, {
+  const response = await axios.post(API_URL, {
     userId,
-    date: new Date().toISOString(),
+    date: new Date().toISOString().split("T")[0],
     products: [{ productId, quantity }],
   });
   return response.data;
@@ -24,13 +24,13 @@ export const updateCart = async (
   cartId: number,
   products: { productId: number; quantity: number }[]
 ) => {
-  const response = await axios.put(`${BASE_URL}/${cartId}`, {
-    date: new Date().toISOString(),
+  const response = await axios.put(`${API_URL}/${cartId}`, {
+    date: new Date().toISOString().split("T")[0],
     products,
   });
   return response.data;
 };
 
 export const deleteCart = async (cartId: number) => {
-  await axios.delete(`${BASE_URL}/${cartId}`);
+  await axios.delete(`${API_URL}/${cartId}`);
 };

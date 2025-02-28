@@ -12,7 +12,7 @@ export function ProductCard({ product }: ProductCardProps) {
   const addToCart = useCartStore((state) => state.addToCart);
 
   const handleAddToCart = () => {
-    addToCart(1, product.id, 1);
+    addToCart(1, product.id);
   };
 
   return (

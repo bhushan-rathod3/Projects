@@ -1,3 +1,11 @@
+# 27-02-25
+
+# Cart API calls
+
+## Demo Video 🎥
+
+[![Watch the demo](https://via.placeholder.com/800x450.png?text=Click+to+Watch)](https://drive.google.com/file/d/1Fu6sVmYYMQhV-8lny03NBqFld1wRXMN9/view?usp=sharing)
+
 # 26-02-25
 
 # fakestore api (product api calls implemented)

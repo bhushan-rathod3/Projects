@@ -1,49 +1,58 @@
 import { create } from "zustand";
-import { addToCart, fetchUserCart, updateCart, deleteCart } from "@/api/cart";
+import { fetchCart, addToCart, updateCart, deleteCart } from "@/api/cart";
 
-export type CartItem = {
+interface CartItem {
   productId: number;
   quantity: number;
-};
+}
 
-type CartState = {
-  cart: CartItem[];
-  fetchCart: (userId: number) => Promise<void>;
-  addToCart: (
-    userId: number,
+interface CartState {
+  cartItems: CartItem[];
+  cartId: number | null;
+  fetchUserCart: (userId: number) => Promise<void>;
+  addToCart: (userId: number, productId: number) => Promise<void>;
+  updateItem: (
+    cartId: number,
     productId: number,
     quantity: number
   ) => Promise<void>;
-  updateItemQuantity: (cartId: number, products: CartItem[]) => Promise<void>;
-  clearCart: (cartId: number) => Promise<void>;
-};
+  clearCart: () => Promise<void>;
+}
 
-export const useCartStore = create<CartState>((set) => ({
-  cart: [],
+export const useCartStore = create<CartState>((set, get) => ({
+  cartItems: [],
+  cartId: null,
 
-  // ✅ Fetch user's cart
-  fetchCart: async (userId) => {
-    const cartData = await fetchUserCart(userId);
-    set({ cart: cartData[0]?.products || [] });
+  fetchUserCart: async (userId) => {
+    const cartData = await fetchCart(userId);
+    if (cartData.length > 0) {
+      set({ cartItems: cartData[0].products, cartId: cartData[0].id });
+    }
   },
 
-  // ✅ Add product to cart and update state
-  addToCart: async (userId, productId, quantity) => {
-    await addToCart(userId, productId, quantity);
+  addToCart: async (userId, productId) => {
+    const newCart = await addToCart(userId, productId, 1);
+    if (newCart) {
+      set({ cartItems: newCart.products, cartId: newCart.id });
+    }
+  },
+
+  updateItem: async (cartId, productId, quantity) => {
+    if (!cartId) return;
+
     set((state) => ({
-      cart: [...state.cart, { productId, quantity }],
+      cartItems: state.cartItems.map((item) =>
+        item.productId === productId ? { ...item, quantity } : item
+      ),
     }));
+
+    await updateCart(cartId, get().cartItems);
   },
 
-  // ✅ Update cart item quantity
-  updateItemQuantity: async (cartId, products) => {
-    await updateCart(cartId, products);
-    set({ cart: products });
-  },
-
-  // ✅ Clear cart
-  clearCart: async (cartId) => {
+  clearCart: async () => {
+    const { cartId } = get();
+    if (!cartId) return;
     await deleteCart(cartId);
-    set({ cart: [] });
+    set({ cartItems: [], cartId: null });
   },
 }));
