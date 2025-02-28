@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   fetchProducts,
   fetchCategories,
+  fetchProductById,
   addProduct,
   updateProduct,
   deleteProduct,
@@ -18,6 +19,7 @@ interface ProductContextType {
     updatedProduct: Partial<IProduct>;
   }) => void;
   removeProduct: (id: number) => void;
+  fetchProductById: (id: number) => Promise<IProduct>;
 }
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -64,6 +66,7 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
         addNewProduct: addMutation.mutate,
         editProduct: updateMutation.mutate,
         removeProduct: deleteMutation.mutate,
+        fetchProductById,
       }}
     >
       {children}

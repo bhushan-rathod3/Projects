@@ -1,15 +1,15 @@
-import { cn } from "@/lib/utils"
+import React from "react";
 
-function Skeleton({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+type SkeletonProps = {
+  count: number;
+};
+
+export const Skeleton: React.FC<SkeletonProps> = ({ count }) => {
   return (
-    <div
-      className={cn("animate-pulse rounded-md bg-primary/10", className)}
-      {...props}
-    />
-  )
-}
-
-export { Skeleton }
+    <div>
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className="skeleton-loader" />
+      ))}
+    </div>
+  );
+};
