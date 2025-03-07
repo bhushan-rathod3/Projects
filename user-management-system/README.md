@@ -1,54 +1,36 @@
-# React + TypeScript + Vite
+## Demo Videos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- A demo of the user dashboard, showcasing the regular user functionality.
+- [**User View**](https://drive.google.com/file/d/1_PoQSPr16XWk-iTXDZsU_WsN2KFiqx2S/view?usp=sharing)
 
-Currently, two official plugins are available:
+- A demo of the admin dashboard, showcasing the admin functionality.
+- [**Admin View**](https://drive.google.com/file/d/1ZndX9GvZY8U-D7FqixgJLQB9h7MJ-9YT/view?usp=sharing)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# 🛠 User Management System (Admin Dashboard)
 
-## Expanding the ESLint configuration
+This **User Management System** is built with **React, Vite, Zustand, and Ant Design**, using the **ReqRes API** for user data.  
+It includes **authentication, user CRUD operations, role-based access (Admin vs. User), search, sorting, pagination**, and partial updates.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 🚀 Features
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### ✅ **Authentication System**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Login & Register using the ReqRes API.
+- Admin-only access for **user management** (edit, delete, add users).
+- Uses **Zustand** for global state management.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### ✅ **User Management (CRUD)**
+
+- View all users (`GET /users`).
+- View user details (`GET /users/{id}`).
+- Create new users (`POST /users`).
+- Edit user details (`PUT /users/{id}`).
+- Delete users (`DELETE /users/{id}`).
+
+### ✅ **Additional Features**
+
+- 🔎 **Search & Sort Users** (by name, ascending/descending).
+- 📄 **Pagination for better UX**.
+- 🎭 **Role-Based Access System** (Admin vs. Regular Users).

@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getUsers, createUser, updateUser, deleteUser } from "../api/users";
 import { User } from "../types";
+import { message } from "antd";
 
 export const useUsers = (page: number) => {
   const queryClient = useQueryClient();
@@ -12,10 +13,22 @@ export const useUsers = (page: number) => {
     refetchOnWindowFocus: false,
     placeholderData: (previousData) => previousData,
   });
+  // ✅ Import `message`
 
   const createUserMutation = useMutation({
     mutationFn: (user: Omit<User, "id">) => createUser(user),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["users"] }),
+    onSuccess: () => {
+      console.log("✅ User created successfully! Showing message...");
+
+      message.success("User created successfully!"); // ✅ Shows a temporary success message
+
+      queryClient.invalidateQueries({ queryKey: ["users"] }); // ✅ Ensures UI updates
+    },
+    onError: () => {
+      console.error("❌ User creation failed");
+
+      message.error("Failed to create user. Please try again."); // ✅ Error message if failed
+    },
   });
 
   const updateUserMutation = useMutation({
