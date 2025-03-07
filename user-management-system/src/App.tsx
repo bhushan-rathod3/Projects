@@ -1,15 +1,22 @@
-import { ConfigProvider, Layout } from "antd";
+import { ConfigProvider, Layout, theme } from "antd";
 import { BrowserRouter as Router } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import AppRouter from "./routes/AppRouter";
+import { useThemeStore } from "./store/themeStore";
 
 const { Header, Content } = Layout;
 
 const App = () => {
+  const { isDarkMode } = useThemeStore();
+
   return (
-    <ConfigProvider>
+    <ConfigProvider
+      theme={{
+        algorithm: isDarkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
+      }}
+    >
       <Router>
-        <Layout>
+        <Layout style={{ minHeight: "100vh" }}>
           <Header>
             <Navbar />
           </Header>
