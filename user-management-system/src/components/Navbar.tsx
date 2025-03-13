@@ -1,14 +1,14 @@
 import { Menu, Modal, message, Switch } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
-import { useThemeStore } from "../store/themeStore"; // ✅ Import Dark Mode store
+import { useThemeStore } from "../store/themeStore";
 import { useState } from "react";
-import { MoonOutlined } from "@ant-design/icons"; // ✅ Use Crescent Moon Icon
+import { MoonOutlined } from "@ant-design/icons"; 
 
 const Navbar = () => {
   const navigate = useNavigate();
   const { isAuthenticated, logout } = useAuthStore();
-  const { isDarkMode, toggleDarkMode } = useThemeStore(); // ✅ Dark Mode State
+  const { isDarkMode, toggleDarkMode } = useThemeStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showLogoutModal = () => setIsModalOpen(true);
