@@ -6,6 +6,10 @@
 - A demo of the admin dashboard, showcasing the admin functionality.
 - [**Admin View**](https://drive.google.com/file/d/1ZndX9GvZY8U-D7FqixgJLQB9h7MJ-9YT/view?usp=sharing)
 
+  Admin Credentials - 
+  id -  admin@dashboard.com
+  pass - admin123
+
 - Dark Mode
 - [**Dark Mode**](https://drive.google.com/file/d/1F0xJ4lhUm1moD7UUdRnq3pw29V6KBFHs/view?usp=sharing)
 
