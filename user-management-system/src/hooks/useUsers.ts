@@ -13,21 +13,21 @@ export const useUsers = (page: number) => {
     refetchOnWindowFocus: false,
     placeholderData: (previousData) => previousData,
   });
-  // ✅ Import `message`
+
 
   const createUserMutation = useMutation({
     mutationFn: (user: Omit<User, "id">) => createUser(user),
     onSuccess: () => {
       console.log("✅ User created successfully! Showing message...");
 
-      message.success("User created successfully!"); // ✅ Shows a temporary success message
+      message.success("User created successfully!");
 
-      queryClient.invalidateQueries({ queryKey: ["users"] }); // ✅ Ensures UI updates
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: () => {
       console.error("❌ User creation failed");
 
-      message.error("Failed to create user. Please try again."); // ✅ Error message if failed
+      message.error("Failed to create user. Please try again.");
     },
   });
 
